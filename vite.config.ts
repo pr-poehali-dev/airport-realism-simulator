@@ -19,7 +19,9 @@ export default defineConfig({
     port: 5173,
     allowedHosts: true,
     hmr: {
-      overlay: false // Disables the error overlay if you only want console errors
+      clientPort: 443, // Исправит проблему с WebSocket
+      host: 'preview--airport-realism-simulator.poehali.dev', // Используем домен сервера
+      overlay: false // Отключаем оверлей ошибок
     }
   },
 });
