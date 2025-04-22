@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 
 interface FlightSimulatorProps {
   destination: { name: string; duration: number } | null;
@@ -80,25 +79,18 @@ const FlightSimulator = ({ destination }: FlightSimulatorProps) => {
             
             {/* Облака */}
             {cloudPosition.map((pos, index) => (
-              <motion.div 
+              <div 
                 key={index}
-                className="absolute bg-white rounded-full opacity-80"
+                className="absolute bg-white rounded-full opacity-80 animate-float"
                 style={{
                   width: `${30 + Math.random() * 50}px`,
                   height: `${20 + Math.random() * 30}px`,
                   left: `${pos}%`,
                   top: `${40 + Math.random() * 30}%`,
                   filter: "blur(4px)",
-                  zIndex: Math.floor(Math.random() * 5)
-                }}
-                animate={{
-                  x: [-10, 10, -10],
-                  y: [-5, 5, -5],
-                }}
-                transition={{
-                  duration: 3 + Math.random() * 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
+                  zIndex: Math.floor(Math.random() * 5),
+                  animation: `float ${3 + Math.random() * 2}s ease-in-out infinite alternate`,
+                  transform: `translateY(${Math.random() * 10}px)`,
                 }}
               />
             ))}
