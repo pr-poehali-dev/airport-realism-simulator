@@ -1,7 +1,6 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
 
 interface AirportSceneProps {
   onApproachCounter: () => void;
@@ -10,12 +9,15 @@ interface AirportSceneProps {
 const AirportScene = ({ onApproachCounter }: AirportSceneProps) => {
   const [position, setPosition] = useState({ x: 50, y: 80 });
   const [showPrompt, setShowPrompt] = useState(false);
+  const [isMoving, setIsMoving] = useState(false);
   
   // Имитация перемещения к стойке
   const approachCounter = () => {
+    setIsMoving(true);
     setPosition({ x: 50, y: 30 });
     
     setTimeout(() => {
+      setIsMoving(false);
       setShowPrompt(true);
     }, 1000);
   };
@@ -41,19 +43,18 @@ const AirportScene = ({ onApproachCounter }: AirportSceneProps) => {
       </div>
       
       {/* Игрок */}
-      <motion.div 
-        className="absolute w-16 h-16 bg-purple-600 rounded-full border-4 border-purple-800 flex items-center justify-center text-white z-10"
-        animate={{ 
+      <div 
+        className={`absolute w-16 h-16 bg-purple-600 rounded-full border-4 border-purple-800 flex items-center justify-center text-white z-10 ${isMoving ? 'transition-all duration-1000' : ''}`}
+        style={{ 
           left: `${position.x}%`, 
           top: `${position.y}%`,
         }}
-        transition={{ duration: 1 }}
       >
         <div className="text-center">
           <div className="text-2xl">👤</div>
           <div className="text-xs mt-1">Вы</div>
         </div>
-      </motion.div>
+      </div>
       
       {/* Кнопка подхода к стойке */}
       {!showPrompt && (
